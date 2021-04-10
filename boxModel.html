@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>盒子模型</title>
+    <style>
+        .content-box{
+            width:  200px;
+            height: 100px;
+            display: inline-block;
+            box-sizing: content-box;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid red;
+        }
+
+        .border-box{
+            width:  200px;
+            height: 100px;
+            display: inline-block;
+            box-sizing: border-box;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        1.实际占位的宽高 width = contentWidth/200 + padding + border + margin
+        2.实际宽高 width = contentWidth/200 + padding + border
+        contentWidth = 200
+        在内容宽度和高度之外绘制内边距和边框
+     -->
+    <div class="content-box">标准盒子模型</div>
+
+    
+    <div style="marigin: 12px 0;"></div>
+    
+    <!-- 
+        1.实际占位的宽高 width = 200 + margin
+        2.实际宽高 width = 200 = contentWidth + padding + border
+        contentWidth = width - padding - border
+        在已定宽度和高度之内绘制元素的边框及内边距
+     -->
+     <div>
+        <div class="border-box">IE盒子模型</div>
+    </div>
+</body>
+</html>

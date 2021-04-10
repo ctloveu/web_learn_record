@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>闭包</title>
+</head>
+<body>
+    
+    <script>
+        // 函数和函数内部能访问到的变量环境，就是一个闭包
+        // 在Javascript语言中，通常只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成"定义在一个函数内部的函数"。
+        // 造成的问题：由于闭包会使用函数内部的变量都保存在内存中，内存消耗很大。在IE中会导致内存泄漏。在使用完毕后，删除局部变量就可以了
+        var name = 'chentao'
+        function cons() {
+            console.log(name)
+            var age = 20
+            function consAge() {
+                console.log(age)
+            }
+        }
+        
+    </script>
+</body>
+</html>

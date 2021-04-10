@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组排序</title>
+</head>
+<body>
+    数组排序的几种方法
+    <script>
+        // 1.快排
+        function quickSort(arr) {
+            if(arr.length < 2) {
+                return arr
+            }
+            const centerIndex = Math.floor(arr.length / 2)
+            const centerVal = arr[centerIndex]
+
+            let left = [], right = []
+            for (let i = 0; i < arr.length; i++) {
+                if(i === centerIndex) {
+                    continue
+                }
+                const curVal = arr[i]
+                if (curVal < centerVal) {
+                    left.push(curVal)
+                    continue
+                } 
+                if(curVal > centerVal) {
+                    right.push(curVal)
+                    continue
+                }
+            }
+            return quickSort(left).contact([centerVal], quickSort(right))
+            // return [].push(...quickSort(left)).push(centerVal).push(...quickSort(right))
+        }
+
+        const arr = [2, 4, 3, 1, 5]
+
+        // console.log(quickSort(arr))
+
+        // 冒泡
+        // function bubbleSort(arr) {
+        //     var l = arr.length
+        //     for (let i = 0; i < l; i++) {
+        //         for (let j = 0; i < l - 1 - i; j++) {
+        //             if (arr[j] > arr[j + 1]) {
+        //                 let temp = arr[j + 1]
+        //                 arr[j + 1] = arr[j]
+        //                 arr[j] = temp
+        //             }
+        //         }
+        //     }
+        //     return arr
+        // }
+        // console.log(bubbleSort([5, 4, 3, 2, 1]))
+
+        // 插入排序
+        function insertSort(arr) {
+            let l = arr.length
+            for (let i = 1; i < l; i++) {
+                let preIndex = i - 1, curVal = arr[i]
+                while(preIndex >= 0 && arr[preIndex] > curVal) {
+                    arr[preIndex + 1] = arr[preIndex]
+                    preIndex--
+                }
+                arr[preIndex + 1] = curVal
+            }
+            return arr
+        }
+
+        // console.log(insertSort([5, 4, 3, 2, 1]))
+
+
+    </script>
+</body>
+</html>

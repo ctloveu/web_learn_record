@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+</head>
+<body>
+    DOM: Doucument Object Model，文档对象模型
+    是JavaScript操作HTML的接口
+
+
+    <h2>DOM节点概念区分</h2>
+    标签：是HTML的基本单位，如div等
+    节点：是DOM数的基本单位，有注释节点、文本节点等多种类型
+    元素：是节点中的一种，与HTML标签对应，如p标签对应p元素
+
+    <p>
+        <!-- 这里的p就是p标签，元素节点p -->
+        这里的文本就是文本节点
+    </p>
+
+    引申问题
+    <h2>
+        为什么频繁操作DOM会消耗内存
+    </h2>
+    这里需要引入一个线程切换的概念:
+        为了避免JavaScript引擎和渲染引擎同时修改同一个页面而造成渲染结果不一致的情况
+        这两个引擎具有互斥性
+        也就是在一个引擎工作时，另外一个引擎会被阻塞，操作系统在切换线程时需保存上一个线程的执行状态信息
+        并读取下一个线程的状态信息，俗称上下文切换。而这个操作是比较耗时的。带来了性能损耗
+
+    
+    防抖：
+        
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    有n个promise，[p1,p2,,,,,pn] 按照顺序执行
+    <script>
+        const arr =  [
+            function p1() {
+                return new Promise((r, j) => {
+                    setTimeout(() => {
+                        r('1')
+                    }, 1000)
+                    
+                })
+            },
+            function p1() {
+                return new Promise((r, j) => {
+                    setTimeout(() => {
+                        r('2')
+                    }, 1000)
+                    
+                })
+            }
+        ]
+        // 使用async/await的方法  在遍历数组
+       async function orderPromise(arr) {
+            for (const promise of arr) {
+                 let res = await promise()
+                 console.log(res)
+            }
+        }
+        
+        orderPromise(arr)
+    </script>
+</body>
+</html>

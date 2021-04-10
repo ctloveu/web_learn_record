@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>继承</title>
+</head>
+<body>
+    继承的几种方式
+
+    <script>
+        function parent() {
+            this.name = '我是爸爸'
+            this.age = function() {
+                console.log('我年纪比较大')
+            }
+        }
+
+        // 一、原型式继承
+        // 缺点：
+        // 1.无法继承多个
+        // 2.无法传参
+        function child1() {
+
+        }
+        child1.prototype = new parent()
+
+        // 二、构造函数继承
+        // 1.不能继承父类原型的方法/属性
+        // 2.每个子类都有父类实例函数的副本，影响性能
+        function child2(name) {
+            parent.apply(this)
+        }
+
+        // 三、实例继承
+        // 1.不支持多继承
+        function child3() {
+            return new parent()
+        }
+
+        // 四、构造函数和原型链组合式继承
+        // 1.两次实例化了父类函数
+        function child4() {
+            parent.apply(this)
+        }
+        child4.prototype = new parent()
+        child4.prototype.constructor = child4
+
+        // 五、寄生组合式继承
+        function child5(){
+            parent.apply(this)
+        }
+        var prototype = Object.create(parent.prototype)
+        prototype.constructor = child5
+        child5.prototype = prototype
+        
+        // Object.create实现方法
+        Object.prototype.create = function() {
+            function F() {}
+            F.prototype = {}
+            return new F()
+        }
+
+    </script>
+</body>
+</html>

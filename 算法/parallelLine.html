@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>任意四点找出平行线</title>
+</head>
+<body>
+    任意四点找出平行线
+
+
+    还没写好
+
+    <script>
+        const arr = ['A', 'B', 'C', 'D']
+        function parallelLine(arr) {
+            const result = [], combinate = []
+            const l = arr.length
+            for (let i = 0; i < l - 1; i++) {
+                for (let j = i+1; j < l; j++) {
+                    result.push(arr[i] + '-' + arr[j])
+                    // isParallelLine(arr[i], arr[j], arr[l - i - 1], arr[l - j - 1])
+                }
+            }
+            console.log(result)
+
+            for (let i = 0; i < result.length - 1; i++) {
+                for (let j = i+1; j < result.length; j++) {
+                    combinate.push([result[i], result[j]])
+                }
+            }
+            return combinate
+        }
+        console.log(parallelLine(arr))
+
+        function isParallelLine([x1, y1], [x2, y2], [x3, y3], [x4, y4]) {
+            const r1 = Math.abs(y2 - y1)/Math.abs(x2 - x1)
+            const r2 = Math.abs(y4 - y3)/Math.abs(x4 - x3)
+            const abs = Math.abs(r2 - r1)
+            if (abs < (1e-10)) {
+                // 判断是否重合
+                return true
+            }
+            return false
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HTML标签的特殊使用</title>
+
+    <!-- <meta http-equiv="Refresh" content="5; page2.html" /> -->
+    <!-- <meta http-equiv="Refresh" content="5" /> -->
+</head>
+<body>
+    <h3>meta标签</h3>
+    1.实现PPT自动播放功能
+    <!-- <meta http-equiv="Refresh" content="5; page2.html" /> -->
+    <!-- 5代表时间，单位s -->
+    <!-- page2.html下一页的内容 -->
+    <!-- 不能使用www.baidu.com这种链接，因为该处内容会自动添加该项目的前缀 -->
+
+    2.每隔一分钟，刷新页面的大屏幕，使用meta标签，去掉第二个路径参数即可
+    <!-- <meta http-equiv="Refresh" content="5" /> -->
+
+    这两种不能手动取消，需要取消的话建议用js setTimeout
+
+    <h3>title标签</h3>
+    3.title标签和Hack手段:消息提醒
+    合理修改title样式，可提高一些通知消息提示，提高用户体验，比如滚动效果
+
+
+    性能优化
+    script标签：调整js的加载顺序提高渲染速度
+    3个属性：
+        async属性--立即请求文件，但不会阻塞引擎，文件加载完毕后阻塞渲染引擎并立即执行文件内容
+        defer属性--立即请求文件，但不阻塞渲染引擎，等到HTML渲染后再执行文件内容
+        HTML5标准type属性 -- 对应值为'module' 让浏览器按照ES6标准将文件当做模块进行解析，默认阻塞效果跟defer相同，也可以配合async属性使用
+
+
+    当渲染引擎解析HTML遇到script标签时，会立马执行一次加载，所以构建工具都是把script放在body最后面
+
+
+    link标签：通过预处理提升渲染速度
+    dns-prefetch（预取）
+    <!-- <link rel="dns-prefetch" href="//.www.baidu.com"> -->
+    当rel的值为ns-prefetch时，浏览器会对某个域名预先进行DNS解析并缓存
+
+</body>
+</html>

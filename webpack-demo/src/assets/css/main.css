@@ -1,0 +1,16 @@
+html{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body{
+    width: 100%;
+    height: 100%;
+    background-color: #eee;
+}
+
+/* 
+    当不使用css-loader加载器时，这里打包不会报错
+ */
+/* console.log('我是一个css文件样式包') */

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>promise</title>
+</head>
+<body>
+    
+    <script>
+        // Promise构造函数接受一个函数作为参数，该函数的参数分别是resolve，reject。这两个函数都是由JS引擎提供
+        const promise = function () {
+            return new Promise(function (resolve, reject) {
+                if (false) {
+                    resolve(true)
+                } else {
+                    reject(false)
+                }
+            })
+        }
+        // then方法接受两个回调函数作为参数，第一个是resolved状态时使用，第二个是rejected状态时使用。两个方法都是可选的
+        promise().then((result) => {
+            console.log(result)
+        }, err => {
+            console.log('$2:我后于$1执行')
+            // console.log(err)
+        })
+        // promise().then((result) => {
+        //     console.log(result)
+        // }).catch((err) => {
+        //     console.log(err)
+        // })
+
+        // 注意：Promise 新建后就会立即执行
+        const promise2 = function () {
+            return new Promise(function (resolve, reject) {
+                console.log(`$1:新建时，我会立即执行；`)
+                if (true) {
+                    resolve(true)
+                } else {
+                    reject(false)
+                }
+            })
+        }
+        promise2().then(() => {
+            console.log('$3:我后于$1，$2执行')
+        })
+        console.log(`主流程$1：我只后已$1执行`)
+
+
+        // promise4的回调函数需等待promise3的状态改变；如果p3状态为resolved或者rejected，那么p4的回调函数将会立刻执行。
+        const promise3 = function () {
+            return new Promise((r, j) => {
+                setTimeout(() => { r('我是promise3的回调') }, 3000)
+            })
+        }
+
+        const promise4 = function () {
+            return new Promise((r, j) => {
+                setTimeout(() => { r(promise3()) }, 0)
+            })
+        }
+        promise4().then(r => {
+            console.log(r)
+        })
+
+        // 注意：调用resolve或reject并不会终结 Promise 的参数函数的执行
+        // console.log('resolved后不会终止后面的代码执行')会打印   resolved 的 Promise 是在本轮事件循环的末尾执行，总是晚于本轮循环的同步任务。
+        const promise5 = function () {
+            return new Promise((r, j) => {
+                r('后续还会接着执行')
+                // 建议加return
+                // return r('后续还会接着执行')
+
+                // 该处会先打印出来
+                console.log('resolved后不会终止后面的代码执行')
+            })
+        }
+        promise5().then(r => {
+            console.log(r)
+        })
+
+        const promise6 = function (value, ms = 1000) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    return resolve(value)
+                }, ms)
+            })
+        }
+        // 第一个then为promise6的回调，返回的是一个新的Promise实例，因此可以采取链式写法，即方法后面在调用then方法
+        promise6('模拟第一个请求').then(res => {
+            return res
+        }).then((res2) => {
+            console.log(res2)
+        })
+
+        // 当前一个函数返回的还是一个Promise对象，这时第二个then方法指定的返回函数，会等待这个新的Promise对象状态改变。
+        // 如果状态为resolved，就会调用第一个回调函数，如果状态为rejected，就会调用第二个
+        promise6('模拟第一个请求').then(res => {
+            return promise6('模拟第二个请求')
+        }).then((res2) => {
+            console.log(res2)
+        }, (err) => {
+
+        })
+
+
+        // Promise.prototype.catch()方法是Promise.prototype.then(null, rejection)或者Promise.prototype.then(undefined, rejection)的别名。用于指定发生错误时的回调函数
+        const promise7 = function (value, ms = 1000) {
+            return new Promise((resolve, reject) => {
+                if (value) {
+                    return resolve('正确返回')
+                } else {
+                    return reject('错误返回')
+                }
+            })
+        }
+
+        promise7(false).then(res => {
+            // TODO
+        }).catch(err => {
+            console.log('catch发生错误!', err)
+        })
+        // 等同于
+        promise7(false).then(res => {
+            // TODO
+        }).then(null, err => {
+            console.log('then发生错误!', err)
+        })
+
+        // 一般来讲，不建议在then中定义reject状态的回调函数，使用catch方法更好
+        // 没有使用catch()方法指定错误处理的回调函数，Promise 对象抛出的错误不会传递到外层代码
+        // 跟传统的try/catch代码块不同，如果没有使用catch()方法指定错误处理的回调函数，Promise 对象抛出的错误不会传递到外层代码
+        // 内部x有语法错误，浏览器会报错 ReferenceError: x is not defined
+        // 注意：一般建议Promise后面总是跟着catch()
+        const promise8 = function (value, ms = 1000) {
+            return new Promise((resolve, reject) => {
+                return resolve(x+value)
+            })
+        }
+        promise8(true)
+        console.log('判断此处是否会接着执行') // 显然会执行到此处
+        promise8(true).catch(err => {
+            console.log('promise8', err) // 浏览器会在此处用console打印出该错误
+        })
+
+        // Promise.prototype.finally() 
+        
+
+    </script>
+</body>
+</html>

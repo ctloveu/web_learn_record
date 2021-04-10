@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    用js实现string中indexOf的方法
+
+    <script>
+        String.prototype.myIndexOf = function(str) {
+            const sourceArr = this.split('')
+            let index = -1
+            for (let i = 0; i < sourceArr.length; i++) {
+                const s = sourceArr[i]
+                if (s === str.slice(0, 1)) {
+                    if (str === this.slice(i, i+str.length)) {
+                        index = i
+                        break
+                    }
+                }
+                
+            }
+            return index
+        }
+    </script>
+</body>
+</html>

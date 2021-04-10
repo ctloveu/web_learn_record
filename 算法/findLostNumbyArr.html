@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    有一组数据，从1到n，中间缺少m个数，放在一个n-3的数组里
+    <script>
+        // 先把原数组排序
+        // 在用对象属性唯一的方式，把已有数据存在对象中
+        // 顺便找出数组中最大的值
+        function getLostNumByArr(arr) {
+            const obj = {}
+            let maxNum = arr[0]
+            for (let i = 0; i < arr.length; i++) {
+                obj[arr[i]] = true
+                if (arr[i] > maxNum) {
+                    maxNum = arr[i]
+                }
+            }
+            const lost = []
+            for (let i = 1; i <= maxNum; i++) {
+                if (!obj[i]) {
+                    lost.push(i)
+                }
+            }
+            return lost
+        }
+        const lost = getLostNumByArr([6, 2, 3, 1])
+        console.log(lost)
+
+        // 顺便复习下防抖和节流
+        // const debouncs = (fn, ms = 1000) => {
+        //     let timer
+        //     return function() {
+        //         if (timer) {
+        //             clearTimeout(timer)
+        //         }
+        //         timer = setTimeout(() => {
+        //             fn()
+        //         }, ms)
+        //     }
+        // }
+
+        // const throttle = (fn, ms = 1000) => {
+        //     let flag = true
+        //     return function() {
+        //         if (!flag) {
+        //             return
+        //         }
+        //         flag = false
+        //         setTimeout(() => {
+        //             fn()
+        //             flag = true
+        //         }, ms)
+        //     }
+        // }
+    </script>
+</body>
+</html>
