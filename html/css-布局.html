@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css-布局</title>
+
+    <style>
+        .one{
+            max-width: 100px;
+            margin: 0 auto;
+        }
+        .two {
+            overflow: hidden;
+            display: flex;
+        }
+        .two .left {
+            width: 100px;
+        }
+        .two .right{
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    1.单列布局
+        设置(width较小)最大宽度，适应分辨路大于最大宽度的网页
+    <div class="one">
+
+    </div>
+
+
+    2.两列布局
+        左侧容器宽度固定
+        右侧内容剩余内容撑满
+    <div class="two">
+        <div class="left">左</div>
+        <div class="right">右</div>
+    </div>
+
+    3.三列布局
+
+    <div style="width: 200px;height: 200px;margin: 20px; padding: 10px; border: solid 1px red;">
+        <div></div>
+    </div>
+
+    
+</body>
+</html>

@@ -33,6 +33,8 @@
         2.实际宽高 width = contentWidth/200 + padding + border
         contentWidth = 200
         在内容宽度和高度之外绘制内边距和边框
+
+        left: 距离是相对父元素内容边界的距离，也就是content边界，不是bodrer
      -->
     <div class="content-box">标准盒子模型</div>
 
@@ -44,6 +46,8 @@
         2.实际宽高 width = 200 = contentWidth + padding + border
         contentWidth = width - padding - border
         在已定宽度和高度之内绘制元素的边框及内边距
+
+        left: 距离是相对父元素实际内容边界的距离，也就是content边界，不是bodrer，是padding后内容的边界
      -->
      <div>
         <div class="border-box">IE盒子模型</div>

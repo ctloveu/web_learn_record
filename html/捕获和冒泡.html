@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>捕获和冒泡</title>
+</head>
+<body>
+    <h2>首先理解事件触发流程</h2>
+    <h4>流程如下：</h4>
+    <ul class="list">
+        <li class="li">1.捕获： 事件对象window传播到目标对象的父对象</li>
+        <li class="li">2.目标： 事件对象到到达事件对象的事件目标</li>
+        <li class="li">3.冒泡： 事件对象从目标对象的父对象开始传播到window</li>
+    </ul>
+
+    <!-- 事件代理 -->
+    <script>
+        // 单个绑定事件写法
+        const lis = document.getElementsByClassName('li')
+        console.log(lis)
+        // for (let i = 0; i < lis.length; i++) {
+        //     const li = lis[i]
+        //     li.onclick = function (e) {
+        //         console.log(e.target.innerHTML)
+        //     }
+        // }
+
+        const ul = document.querySelector('.list')
+        ul.onclick = (e) => {
+            // console.log(e)
+            const t = e.target || e.srcElement
+            // debugger
+            if (t.classList.contains('li')) {
+                console.log(t.innerHTML)
+            }
+        }
+    </script>
+</body>
+</html>
