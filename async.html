@@ -12,7 +12,10 @@
 
         function cons(name) {
             return new Promise((r, j) => {
-                setTimeout(() => { return r(name) }, 2000)
+                setTimeout(() => {
+                    console.log(name)
+                    return r(name)
+                }, 2000)
             })
         }
 
@@ -20,6 +23,7 @@
            const lida = await cons('lida')
            const ct = await cons('chentao')
            return lida
+        //    return ct
         }
 
         // async函数返回一个Promise对象，可以使用then方法添加回调函数。一旦遇到await就会先返回，等到异步操作在执行函数体内后面的语句

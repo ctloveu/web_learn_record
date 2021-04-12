@@ -7,7 +7,8 @@
     <title>promise</title>
 </head>
 <body>
-    
+    promise的原理：
+        核心原理其实就是发布订阅模式，通过两个队列来缓存成功的回调(resolve)和失败回调(reject)
     <script>
         // Promise构造函数接受一个函数作为参数，该函数的参数分别是resolve，reject。这两个函数都是由JS引擎提供
         const promise = function () {

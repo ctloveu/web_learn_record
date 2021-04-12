@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js宏任务和微任务</title>
+</head>
+<body>
+    javascript的宏任务和微任务
+    宏任务：包括整体代码script，setTimeout，setInterval，I/O, UI交互事件，setImmediate
+    微任务：Promise，MutaionObserver，process.nextTick
+    注意：new promise中的代码会立即执行，then函数分发到微任务队列，process.nextTick分发到微任务队列Event Queue
+
+    任务进入执行栈----同步任务还是异步任务----同步的进入主线程，异步的进入Event Table并注册函数。
+    当指定的事情完成时，Event Table会将这个函数移入Event Queue。
+    主线程内的任务执行完毕为空，会去Event Queue读取对应的函数，进入主线程执行。上述过程会不断重复，也就是常说的Event Loop(事件循环)。
+
+    当你往外拿的时候先从微任务的queue里拿这个回掉函数，然后再从宏任务的queue上拿宏任务的回掉函数
+    <script>
+        setTimeout(function() {
+            console.log('宏任务setTimeout');  //先遇到setTimeout，将其回调函数注册后分发到宏任务Event Queue
+        //如果setTimeout设置时间，那它会先把函数放到宏任务Event Table,等时间到了再放入宏任务Event Queue里面
+        })
+        new Promise(function(resolve) {
+            console.log('微任务promise');  	//new Promise函数立即执行
+            resolve();						//必须resolve执行才能执行then
+        }).then(function() {
+            console.log('微任务then');  		  //then函数分发到微任务Event Queue
+        })
+        console.log('主线程console');
+        
+        //执行顺序结果： 微任务promise、主线程console、微任务then、宏任务setTimeout
+    </script>
+</body>
+</html>
