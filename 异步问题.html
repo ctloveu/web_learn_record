@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS异步问题</title>
+</head>
+<body>
+    常见异步函数的优先级
+        process.nextTick(node.js) > MutationObserver(浏览器)/promise.then(catch,finnally)
+        >setImmediate(IE) > setTimeout/setIntervalrequestAnimationFrame
+        > 其它I/O操作/浏览器DOM事件
+
+    
+</body>
+</html>

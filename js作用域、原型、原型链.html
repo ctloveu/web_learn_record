@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js作用域</title>
+</head>
+<body>
+    
+    作用域是指赋值、取值操作的执行范围
+    作用：通过作用域机制可以有效地防止变量、函数的重复定义，以及控制它们的可访问性
+
+
+    原型和原型链？
+    原型：简单的去理解，原型就是对象的属性，包括被称为隐式原型_proto_属性和显式原型prototype属性
+    隐式原型通常在创建实例的时候就会自动指向构造函数的显式原型。
+    <script>
+        var a = {}
+        a.__proto__ === Object.prototype // true
+
+        var b = new Object()
+        a.__proto__ === b.__proto__  // true
+
+        console.log(a.__proto__)
+        console.log(a.prototype) // undefined prototype是函数的默认属性
+        console.log(Object.prototype)
+
+        // constructor会指向自身
+        console.log(Object.prototype.constructor()) // {} 相当于 new Object()的操作
+    </script>
+    显式原型prototype是内置函数的默认属性，在创建自定义函数时会默认生成（除箭头函数），该属性指向函数自身。
+    通常配合new 关键字一起使用，当new一个实例时，会将实例的__proto__隐式原型指向构造函数的prototype显示原型
+
+    <script>
+        function fn() {
+            
+        }
+        fn.prototype.constructor === fn // true
+
+        const child = new fn()
+        console.log(child.__proto__ === fn.prototype) // true
+    </script>
+
+    在下面例子中，实际childs并没有code属性，所以会去__proto__指向的父对象去找，将parent.code打印出来
+    在该例子中，如果parent也没有code属性，那么会继续在parent隐式原型对象中寻找属性code，从此类推，一直找到null报错为止，
+    这种类似递归的链式查找机制被称作为“原型链”
+    <script>
+        var parent = {name: '23432', code: '234'}
+        var childs = { __proto__: parent, age: 22 }
+        console.log(childs.__proto__) // {name: '23432', code: '234'}
+        console.log(childs.code) // 234
+        console.log(childs.hasOwnProperty)
+    </script>
+
+    new操作符实现了什么？
+    执行完下面的，主要包含三个步骤
+        1.创建了一个临时的空对象_fn，让对象fn的隐式原型指向了函数F的显式原型
+        2.执行函数F(),将this指向对象fn，并传入参数args,得到执行结果result
+        3.判断result的结果，如果为非空对象，则返回result，否则返回_fn
+    <script>
+        function F(...arg) {
+            return { // return的结果就是result
+                name: '23'
+            }
+        }
+        var _fn = new F(args = [1, 2])
+        console.log(_fn) // 么有return时，_fn = F() {}  当return {}  _fn = {},当return其它类型变量时，_fn = F() {}
+    </script>
+
+    
+</body>
+</html>

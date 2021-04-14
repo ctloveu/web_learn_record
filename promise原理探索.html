@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>promise的原理探索</title>
+</head>
+<body>
+
+    <script>
+
+        // executor: 执行器，执行器会立马执行
+        function Promise1(executor) {
+            console.log(executor)
+            function resolve(val) {
+                
+            }
+
+            function reject(val) {
+                
+            }
+
+            try {
+                executor(resolve,reject)
+            } catch (e) {
+                reject(e)
+            }
+        }
+
+        // const promise1 = new Promise1((resolve, reject) => {
+        //     console.log('简单demo')
+        // })
+
+        function Promise2(executor) {
+            var self = this //resolve,reject中的this指向不是promise实例，需用self缓存
+            self.state = 'padding'
+            self.value = '' // 缓存成功回调的onfulfilled的参数
+            // self.reson = '' // 缓存失败回调onrejected的参数
+            self.onResolved = [] // 存放成功的回调onfulfilled的集合
+            self.onRejected = [] // 存放失败的回调onrejected的集合
+
+            function resolve(value) {
+                if (self.state === 'padding') {
+                    self.state = 'resolved'
+                    self.value = value
+                    self.onResolved.forEach(fn => {
+                        return fn()
+                    })
+                }
+            }
+
+            function reject(value) {
+                self.state = 'rejected'
+                self.value = value
+                self.onRejected.forEach(fn => fn())
+            }
+
+            try {
+                executor(resolve, reject)
+            } catch (e) {
+                reject(e)
+            }
+        }
+
+        // const promise2 = new Promise2((r, j) => {
+        //     console.log(22)
+        //     r(22)
+        // })
+
+        Promise2.prototype.then = function (onfulfilled, onrejected) {
+            var self = this
+            if (this.state === 'resolved') {
+                onfulfilled(self.value)
+            }
+
+            if (this.state === 'rejected') {
+                onrejected(self.value)
+            }
+
+            if (this.state === 'padding') {
+                this.onResolved.push(function () {
+                    onfulfilled(self.value)
+                })
+            }
+        }
+
+        
+    </script>
+</body>
+</html>

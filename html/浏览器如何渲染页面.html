@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>浏览器如何渲染页面</title>
+</head>
+<body>
+    
+    http从后端获取的数据为字节流数据
+
+    1.字节流解码
+        把字节流数据转为字符流数据
+    2.输入流预处理
+        格式化字符流数据
+    3.令牌化
+        将字符流数据转换成令牌(token)
+        第二步是解析HTML生成DOM树
+        最终生成类似下面的令牌结构
+            开始标签：HTML
+              开始标签：head
+              结束标签：head
+              开始标签：body
+                字符串：lagou
+              结束标签：body
+            结束标签：html
+    补充：遇到script标签时的处理
+        如果script标签时内联代码，那么解析过程会暂停，执行权限会转给JavaScript脚本引擎，结束后继续渲染引擎。
+        注意：有一种情况例外，就是脚本内容中调用了改变DOM结构的document.write()函数，此时渲染引擎会回到第二步，将这些代码加入字符流，重新解析
+        如果是外链脚本，则会根据script的标签type属性去控制
+
+    4.构建DOM树
+
+    整个流程
+        字节————(字节流解码)————字符————(输入流预处理)————统一字符————(令牌化)————令牌————(构建DOM树)————DOM树
+
+    补充2：从CSS到CSSOM
+          跟HTML的解析过程一致，与DOM不同的是，CSSOM树的节点具有继承特性，就是先会从继承父节点样式作为当前样式，然后在进行补充或者覆盖
+
+    5.构建渲染树
+        将DOM树和CSSOM树合成一棵树
+
+    6.布局
+        主要是计算元素大小和位置，布局完成后会输出盒模型，精确捕获每个元素的确切位置和大小，讲所有相对值都转为屏幕上的绝对像素
+
+    7.绘制
+        绘制就是将渲染树中的每个节点转换成屏幕上的实际像素过程
+
+    思考：在构建渲染树的时候，渲染引擎需遍历DOM树节点并从CSSOM树种找到匹配的样式规则，在匹配过程中是通过自上而下还是通过自下而上的方式呢，为什么
+
+    <script>
+        function add(...args) {
+            let arr = args
+            function fn(...newArgs) {
+                arr = [...args, ...newArgs]
+                return fn
+            }
+
+            fn.toString = fn.valueOf = function () {
+                return arr.reduce((acc, cur) => acc += parseInt(cur))
+            }
+            return fn
+        }
+
+        const num = add([1, 3])
+        console.log(num.valueOf())
+    </script>
+</body>
+</html>
