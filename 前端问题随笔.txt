@@ -1,0 +1,47 @@
+css BFC是
+
+webpack打包机制
+
+promise和async/await的区别
+https://blog.csdn.net/qq_37617413/article/details/90637694?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522161771947616780266230702%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=161771947616780266230702&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-1-90637694.first_rank_v2_pc_rank_v29&utm_term=promise%E5%92%8Casync%2Fawait%E7%9A%84%E5%8C%BA%E5%88%AB
+简单来说：
+	async await与Promise一样，是非阻塞的
+	1.promise是es6  async/await是es7
+	2.写法更加优雅，其实async/await是寄生于promise
+	3.promise捕获错误的方式时catch，async/await使用then或者try catch捕获
+
+
+websocket和SSE
+https://blog.csdn.net/weixin_30273501/article/details/98363988
+
+webworker是什么
+https://blog.csdn.net/superfjj/article/details/109351367?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522161771911616780264081812%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=161771911616780264081812&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_v2~rank_v29-5-109351367.first_rank_v2_pc_rank_v29&utm_term=web+worker%E6%98%AF%E4%BB%80%E4%B9%88
+
+
+js事件循环机制
+
+js AMD CMD和common.js的区别
+https://blog.csdn.net/l_ppp/article/details/109740863?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522161787429216780264061385%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=161787429216780264061385&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_v2~rank_v29-1-109740863.first_rank_v2_pc_rank_v29&utm_term=%E4%BD%BF%E7%94%A8commonjs%E5%AF%B9%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E5%A4%9A%E6%AC%A1%E8%B0%83%E7%94%A8%EF%BC%8C%E6%98%AF%E5%90%A6%E4%BC%9A%E4%BA%92%E7%9B%B8%E5%BD%B1%E5%93%8D
+RequireJS 和 Sea.js 都是模块加载器，倡导模块化开发理念
+https://github.com/seajs/seajs/issues/277
+
+
+双向绑定的原理
+vue.js采用的是数据劫持结合发布和-订阅者模式  的方式，通过Object.defineProperty()来劫持各个属性的setter,getter，在数据变动时发布消息给订阅者，触发相应的监听回调。 
+
+泽怡科技
+有4个点，判断任意两条线是否平行
+
+腾讯面试
+有n个promise，[p1, p2,,,pn] 如何按顺序执行下去
+
+
+前端段交互缓存怎么设置使用 
+
+函数的柯里化，this.$nextick()的原理，vue监听js的原理，为什么大厂会使用node作为中间服务层。
+
+学习下tree-shaking
+
+排序算法
+https://edu.csdn.net/course/detail/27220?spm=1000.2115.3001.4128
+
