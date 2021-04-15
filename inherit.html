@@ -11,21 +11,23 @@
 
     <script>
         function parent() {
+            console.log(111)
             this.name = '我是爸爸'
             this.age = function() {
                 console.log('我年纪比较大')
             }
         }
+        parent.prototype.height = 180
 
         // 一、原型式继承
         // 缺点：
         // 1.无法继承多个
         // 2.无法传参
         function child1() {
-
+            console.log(222)
         }
         child1.prototype = new parent()
-
+        
         // 二、构造函数继承
         // 1.不能继承父类原型的方法/属性
         // 2.每个子类都有父类实例函数的副本，影响性能
