@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>路由的理解</title>
+</head>
+<body>
+    基于hash实现
+        hash值是指URL"#"号后面的指，通过location.hash属性可以读写hash值，这个值可以在让浏览器将页面滚动到ID与hash值相等的DOM位置
+        可以通过window.hashChange监听，但这种实现方式占用了hash值，导致浏览器默认滚动失效，需要手动进行滚动
+
+        优缺点：兼容性好，加长了URL的长度，占用了浏览器默认行为
+
+    基于history实现
+        通过history.pushstate()——新增历史记录
+        或history.replacestate()——替换当前历史记录
+        可以用popstate事件实现监听，但上面两个事件不会触发popstate事件，需要手动触发页面渲染
+        
+        优缺点：
+
+    虽然通过上面两种方式实现了前端路由功能，但并不能拦截浏览器默认的请求行为，当用户修改浏览器地址时还是会向服务端发请求
+    所以还需服务端进行设置，讲所有的URL请求转向前端页面，交给前端解析
+
+    路由解析：vue和react都依赖了第三方库进行路由解析，分为两个操作路由匹配和路由生成
+        路由匹配：当获取请求后，如何找到对应配置路径
+        路由生成：
+        
+
+</body>
+</html>

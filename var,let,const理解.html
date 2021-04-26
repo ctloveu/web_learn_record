@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>var let const区别</title>
+</head>
+<body>
+    区别：
+        var声明的变量如果不存在任何函数中，则为全局变量，在函数中属于函数作用域。let和const声明的变量属于块级作用域
+        var存在变量提升现象，而let和const不能变量提升（因为存在暂时性死区）
+        var变量可以重复声明，let变量不能重复声明，const变量不能修改
+
+    <script>
+        if (true) {
+            var a = 2
+        }
+        for (let index = 0; index < 3; index++) {
+            var b = 3
+        }
+        console.log(a) // 2
+        console.log(b) // 3
+
+        console.log(c) // undefined
+        var c = 4
+        console.log(c) // 4
+
+        console.log(d) // d is not defined
+
+        
+
+    </script>
+</body>
+</html>

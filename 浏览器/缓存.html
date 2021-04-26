@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>缓存</title>
+</head>
+<body>
+    浏览器缓存：
+        HTTP缓存：强制缓存和协商缓存
+            强制缓存
+                1.Expires（相应头部字段来设置缓存时间，它对应一个时间戳），当浏览器再次请求资源时，会与该时间戳进行对比，如果早于该时间，则会使用缓存，否则再次请求服务端数据
+                    缺点：服务端和客户端时间不一样问题
+                2.Cache-Control
+                    no-cache:使用协商缓存，即每次使用缓存前必须向服务端确认缓存资源是否更新
+                    no-store:禁止浏览器以及所有中间组件缓存存储相应内容
+                    public：公用缓存，表示可以被代理服务器缓存，可以被多个用户共享
+                    private:私有缓存，不能被代理服务器缓存，不可以被多个用户共享
+                    max-age:缓存有效时间
+                    must-revalidate:当缓存过期时，需去服务端校验缓存的有效性
+                上面值可以组合使用，不同值优先级不一样
+            协商缓存
+                1.last-modified和if-modified-since
+                    通过响应头字段last-modifie和请求头部字段if-modified-since来对比双方资源修改时间
+                    缺点：时间精度问题
+                2.Etag和if-None-match
+                    第一次请求资源后，服务端在返回响应头加入Etag字段
+                    当再次请求服务端该资源时，在请求头上加上if-None-Match值(为之前响应头Ttag的值)
+                    缺点：计算成本，对于大文件计算时间，计算误差，不同服务端同一个文件的计算方式可能会存在误差
+    
+    ServiceWorker
+        它是浏览器在后端独立于网页运行的脚本，也可以这样理解，它是浏览器和服务端之间的代理服务器，可以实现推送和后台同步问题，主要功能是实现离线缓存
+        离线缓存：实现原理，拦截浏览器请求并返回缓存的资源文件
+        使用限制：无法直接访问DOM,可以通过POSTMEssage接口发送消息来与页面交互
+                只能在本地环境或HTTPS网站中使用
+                有作用域的限制，一个ServiceWorker脚本只能在作用于当前路径及其子路径
+                兼容性可能会存在问题
+        使用方法：
+            <script>
+                if('serviceWorker' in window.navigator) {
+                    window.navigator.serviceWorker.register('./进程和线程.html').then(() => {
+                        // console.log()
+                    }).catch(() => {
+                        console.error
+                    })
+                } else {
+                    // 该浏览器不支持serviceWorker
+                }
+            </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>同源策略</title>
+</head>
+<body>
+    源：是由URL中协议、主机名以及端口共同组成
+
+    <h2>
+        请求跨域解决方案
+    </h2>
+    跨域资源共享(CORS):
+        简单请求：请求方法为GET、POST、HEAD
+            请求头只能使用：Accept(浏览器能接受的响应内容类型)、
+                         Accept-Language(浏览器能够接受的自然语言列表)、
+                         Content-type(请求对应的类型，只限于test/plain、multipart/form-data、application/x-www-form-urlencoded)
+                         Content-Language(浏览器希望采用的自然语言列表)、
+                         Save-Data(浏览器是否希望减少数据传输量)
+        非简单请求：对于以上任意要求不符合的即为非简单请求
+            当处理该请求时，浏览器会先发出一个预检请求，这个请求为OPTION方法，并会添加了1个请求头尾Access-Control-Request-Method，值为跨域请求所使用的请求方法
+
+      缺点：简单请求类型单一，且请求头受限制。非简单请求，存在预检请求，消耗网络资源
+
+    JSONP：把JSON数据填充到一个回调函数中，这种比较hack的方式，依赖的是script标签跨域引用js文件不会受到浏览器同源策略限制问题
+      缺点：只能发送get请求，限制了参数大小和类型
+           请求过程无法终止，导致弱网络下处理超时请求比较麻烦
+           无法捕获服务端返回的异常信息
+    
+    Websocket：是HTML5规范提出的一个应用层的全双工协议，适用于浏览器与服务器进行实时通信场景
+
+    代理转发：反向代理和正向代理
+
+    <h2>
+        页面跨域解决方案
+    </h2>
+    postMessage：HTML5退出新的函数用来实现父子页面之间通信，而且不论这两个页面是否同源
+
+    改域：对于主域名相同，子域名不同的情况。可以通过修改document.domain的值来进行跨域
+</body>
+</html>

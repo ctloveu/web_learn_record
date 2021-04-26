@@ -32,7 +32,7 @@
         // constructor会指向自身
         console.log(Object.prototype.constructor()) // {} 相当于 new Object()的操作
     </script>
-    显式原型prototype是内置函数的默认属性，在创建自定义函数时会默认生成（除箭头函数），该属性指向函数自身。
+    显式原型prototype是内置函数的默认属性，在创建自定义函数时会默认生成（除箭头函数）,生成的显示原型对象只有一个属性constructor，该属性指向函数自身。
     通常配合new 关键字一起使用，当new一个实例时，会将实例的__proto__隐式原型指向构造函数的prototype显示原型
 
     <script>
@@ -40,7 +40,7 @@
             
         }
         fn.prototype.constructor === fn // true
-
+        console.log(fn.prototype)
         const child = new fn()
         console.log(child.__proto__ === fn.prototype) // true
     </script>
@@ -58,8 +58,8 @@
 
     new操作符实现了什么？
     执行完下面的，主要包含三个步骤
-        1.创建了一个临时的空对象_fn，让对象fn的隐式原型指向了函数F的显式原型
-        2.执行函数F(),将this指向对象fn，并传入参数args,得到执行结果result
+        1.创建了一个临时的空对象_fn，让对象_fn的隐式原型指向了函数F的显式原型
+        2.执行函数F(),将this指向对象_fn，并传入参数args,得到执行结果result
         3.判断result的结果，如果为非空对象，则返回result，否则返回_fn
     <script>
         function F(...arg) {

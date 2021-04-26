@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件的理解</title>
+</head>
+<body>
+    组件的理解：基于视图的模块
+
+    vue模板编译器：解析、优化、生成
+        解析：词法分析和语法分析
+            parseText(),parseFilter(),parseHTML()
+            parseHTML()用来解析视图模板字符串，词法分析方式通过while循环截图视图模板字符串来实现的
+        优化：操作目的是对AST树静态节点进行标记，避免每次更新视图的时候操作它们
+        生成代码：遍历AST树，然后判断节点类型，按照元素、指令解析成对应可执行的js代码
+    
+    虚拟DOM
+        优化了性能：对大量的DOM批量操作的时候，有提高作用。也就提升了DOM操作的下限，降低了DOM操作的上限
+        跨平台
+    
+    
+</body>
+</html>
