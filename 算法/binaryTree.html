@@ -13,13 +13,76 @@
         //     this.val = val
         //     this.left = this.right = null
         // }
-
-        function binaryTreeFlip(root) {
-            if (root || root === null) {
-                return null
-            }
-            [root.left, root.right] = [binaryTreeFlip(root.right), binaryTreeFlip(root.left)]
+        let tree = {
+            value: 0,
+            left: {
+                value: 1,
+                left: {
+                    value: 3,
+                    left: {
+                        value: 7,
+                    },
+                    right: {
+                        value: 8,
+                    }
+                },
+                right: {
+                    value: 4,
+                    left: {
+                        value: 9,
+                    },
+                    right: {
+                        value: 10,
+                    }
+                }
+            },
+            right: {
+                value: 2,
+                left: {
+                    value: 5,
+                    left: {
+                        value: 11,
+                    },
+                    right: {
+                        value: 12,
+                    }
+                },
+                right: {
+                    value: 6,
+                    left: {
+                        value: 13,
+                    },
+                    right: {
+                        value: 14,
+                    }
+                }
+            },
         }
+        function binaryTreeFlip(root) {
+            if (root) {
+                // 利用es6的结构赋值
+                [root.left, root.right] = [binaryTreeFlip(root.right), binaryTreeFlip(root.left)]
+            }
+            return root
+
+            // 不能按照注释这么写，因为root会被当做顶层的root处理
+            // if(!root) return null
+            // [root.left, root.right] = [binaryTreeFlip(root.right), binaryTreeFlip(root.left)]
+            
+        }
+        console.log(binaryTreeFlip(tree))
+
+        function invertTree(root) {
+            if (root) {
+                var temp = root.left;
+                root.left = root.right;
+                root.right = temp;
+                invertTree(root.left); 
+                invertTree(root.right);
+            }
+            return root
+        }
+        console.log(invertTree(tree))
     </script>
 </body>
 </html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>常用数据结构</title>
+</head>
+<body>
+    1.数组
+
+
+    2.栈
+        栈是一种操作受限的线性结构，限定只能在尾部进行插入和删除操作，尾部称为栈顶，头部反而称为栈底。向一个栈插入新元素称为进栈、入栈或压栈
+        从一个栈删除元素称为出栈或退栈。这种受限的操作方式遵循一种特殊原则——先进后出
+        例子：
+            浏览器的历史记录，浏览器的前进、后退功能
+            V8中的函数执行过程采用的栈结构
+            javascript在捕获代码异常时，详细信息会以调用栈的形式打印
+        <script>
+            // 栈可以通过数组来实现
+            function Stack() {
+                var _stack = []
+
+                // 进栈
+                this.push = function(item) {
+                    _stack.push(item)
+                }
+
+                // 出栈：移除数组的最后一项，返回移除项
+                this.pop = function() {
+                    return _stack.pop()
+                }
+
+                // 栈顶
+                this.top = function() {
+                    return _stack[_stack.length - 1]
+                }
+
+                this.isEmpty = function() {
+                    return _stack.length === 0
+                }
+
+                this.size = function() {
+                    return _stack.length
+                }
+
+                this.clear = function() {
+                    _stack = []
+                }
+            }
+        </script>
+
+    3.队列
+        队列和栈一样也是操作受限的线性结构，但和栈有所区别的是，队列可以在头部和尾部进行操作，但尾部只能插入，头部只能删除。
+        这种受限的操作方式让队列元素的插入和删除遵循一种特殊的原则——先进先出原则
+        例子：
+            JavaScript在处理异步操作时经常会用到队列，比如宏任务队列、微任务队列、回调函数队列
+        
+        <script>
+            function Queue(){
+                var _queue = [];
+
+                // 进栈
+                this.enqueue = function(element){
+                    _queue.push(element)
+                }
+
+                // 出栈
+                // shift 移除数组的第一项，并返回移除项
+                this.dequeue = function() {
+                    return _queue.shift()
+                }
+
+                // 栈顶
+                this.front = function() {
+                    return _queue[0]
+                }
+
+                this.back = function() {
+                    return _queue[_queue.length - 1]
+                }
+
+                this.clear = function() {
+                    _queue = []
+                }
+
+                this.isEmpty = function() {
+                    return _queue.length === 0
+                }
+
+                this.size = function() {
+                    return _queue.length
+                }
+            }
+
+        </script>
+
+    4.链表
+        链表是在存储空间上具有一定优势的线性结构。因为它的有序性是通过指针来实现的，即每个元素都有一个指向下一个元素的指针（链表末端元素可能指向null）
+        所以它不需要连续的内存空间，从而可以节省内存的占用
+            例子：React.js 的 Fiber 算法就是基于链表实现的
+        <script>
+            function LinkedList() {
+                var head = {
+                    value: 'head',
+                    next: null
+                }
+
+                // 查找
+                this.find = function(item) {
+                    var currNode = head
+                    while(currNode.value !== item) {
+                        currNode = currNode.next
+                    }
+                    return currNode
+                }
+
+                // 插入
+                this.insert = function(value, prevNode) {
+                    var newNode = {
+                        value,
+                        next: null
+                    }
+                    var currNode = this.find(prevNode) // 先找到要插入节点的前一个节点
+                    newNode.next = currNode.next // 把前节点的指向转移给新节点指向
+                    currNode.next = newNode // 更改前节点的指向为新节点
+                }
+
+                // 移除
+                this.remove = function (item) {
+                    var prevNode = this.findPrev(item)
+                    var currNode = this.find(item)
+                    if (prevNode.next !== null) {
+                        prevNode.next = prevNode.next.next
+                        currNode.next = null
+                    }
+                }
+
+                this.findPrev = function (item) {
+                    var currNode = head
+                    while (currNode.next !== null && currNode.next.value !== item) {
+                        currNode = currNode.next
+                    }
+                    return currNode
+                }
+            }
+        </script>
+    栈、队列由于操作受限制，无法像数组一样通过下标来访问，查找某个元素时只能逐个进行操作，操作效率不高。链表由于指针的存在，使得在操作效率方面有很大的提升空间。
+    从指针方向上考虑，既可以单向也可以双向，那么就可以形成具有两个指针的双向链表，还可以让指针的头尾相连，形成双向链表，在一个双向循环列表查找元素，就可以同时往两个方向查找
+    这使得速度会优于单向列表。
+    从指针的数量上考虑，还可以通过增加指针的方式来提升操作效率，比如跳跃列表。
+    下面是一个跳跃表实现原理的例子，在一个链表中建立了 3 层指针。最下一层指针，跨 1 个元素链接；中间一层指针，跨 2 个元素链接；上层指针，跨 4 个元素链接。
+    <script>
+        // 1---------->5---------->9->null
+
+        // 1---->3---->5---->7---->9->null
+
+        // 1->2->3->4->5->6->7->8->9->null
+    </script>
+    假设现在要在链表中找到数字 8，对于简单链表而言，需要查找 8 次。而在上述跳跃表中，只需要 5 步：
+
+        1.使用上层指针，找到 5，8 比 5 大，继续；
+        
+        2.继续使用上层指针，找到 9，8 比 9 小，回退到 5，并且指针层数下移；
+        
+        3.使用中层指针，找到 7，8 比 7 大，继续；
+        
+        4.使用中层指针，找到 9，8 比 9 小，回退到 7，并且指针层数下移；
+        
+        5.使用下层指针，找到 8。
+        
+    总的来说，跳跃表通过增加链表元素的冗余指针，使用了空间换时间的方式来提升操作效率。在著名的缓存数据库 Redis 中就使用了跳跃表这种数据结构。
+
+
+    5.树
+        树就是有限节点组成一个具有层次关系的集合，因为它看起来非常像一棵倒着生长的树，根朝上叶朝下，所以命名为“树”。二叉树是最简单且最基础的树
+        树的遍历操作分为两类：深度遍历和广度遍历，其中深度遍历按照遍历根节点的顺序不同又可以分为 3 类：先序遍历、中序遍历和后序遍历。它们的遍历顺序如下：
+            先序遍历，根节点→左子树→右子树
+
+            中序遍历，左子树→根节点→右子树
+
+            后序遍历，左子树→右子树→根节点
+
+            广度遍历，逐层从左至右访问
+    <script>
+        const tree = {
+            value: 0,
+            left: {
+                value: 1,
+                left: {
+                    value: 3,
+                    left: {
+                        value: 7,
+
+                    },
+                    right: {
+                        value: 8,
+                    }
+                },
+                right: {
+                    value: 4,
+                    left: {
+                        value: 9,
+
+                    },
+                    right: {
+                        value: 10,
+                        
+                    }
+                }
+            },
+            right: {
+                value: 2,
+                left: {
+                    value: 5,
+                    left: {
+                        value: 11,
+
+                    },
+                    right: {
+                        value: 12,
+                        
+                    }
+                },
+                right: {
+                    value: 6,
+                    left: {
+                        value: 13,
+
+                    },
+                    right: {
+                        value: 14,
+                        
+                    }
+                }
+            }
+        }
+        // 先序遍历，根节点→左子树→右子树
+        function preOrder(node, result = []) {
+            if(!node) return
+            result.push(node.value)
+            preOrder(node.left, result)
+            preOrder(node.right, result)
+            return result
+        }
+        console.log(preOrder(tree)) // [0, 1, 3, 7, 8, 4, 9, 10, 2, 5, 11, 12, 6, 13, 14]
+
+        // 左子树→根节点→右子树
+        function inOrder(node, result = []) {
+            if(!node) return
+            inOrder(node.left, result)
+            result.push(node.value)
+            inOrder(node.right, result)
+            return result
+        }
+        console.log(inOrder(tree))
+
+        // 后序遍历，左子树→右子树→根节点
+        function postOrder(node, result = []) {
+            if(!node) return
+            postOrder(node.left, result)
+            postOrder(node.right, result)
+            result.push(node.value)
+            return result
+        }
+        console.log(postOrder(tree))
+
+        // 广度优先遍历的实现会稍稍复杂一些，因为每次访问节点时都要回溯到上一层的父节点，通过其指针进行访问。
+        // 但每一层都是从左至右的遍历顺序，这种操作方式很符合队列的先进先出原则，所以可以通过队列来缓存遍历的节点
+        function breadthOrder(node) {
+            if(!node) return
+            var result = []
+            var queue = []
+            queue.push(node)
+            while(queue.length !== 0) {
+                node = queue.shift()
+                result.push(node.value)
+                if(node.left) queue.push(node.left)
+                if(node.right) queue.push(node.right)
+            }
+            return result
+        }
+        console.log(breadthOrder(tree)) //  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+    </script>
+</body>
+</html>
