@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编程方式</title>
+</head>
+<body>
+    编码风格上升为编程范式，也称编程泛型或程序设计法，是对代码编写方式的一种抽象，体现了看法这对程序执行的看法
+    常见的范式编程有：命令式编程和声明式编程
+        命令式编程：重要两个子类——面向过程和面向对象
+            面型过程：是一种以过程为中心的编程思想，在编程过程中分析出解决问题所需的步骤，然后在按照执行过程编写代码。这种比较具象的方式很符合我们的直觉思维，比如JavaScript
+            <script>
+                function calc(arr, type) {
+                    switch (type) {
+                        case 'add':
+                            return arr.reduce((acc, cur) => acc + cur, 0)
+                            break;
+                    }
+                }
+            </script>
+            这种编程范式流程明确，不需要向面向对象那样生成实例，占用额外的存储空间，但是它有个问题，代码的可扩展性不够。比如我现在要加一个类型，只能直接修改calc函数
+
+            面向对象：核心是对象，它不是把问题抽象成流程步骤，而是抽象成对象，对象是程序代码中的基本单位，对应代码中的类或类的实例，对象内部封装了数据和方法
+            这种编程范式包含了3个主要特征：封装、继承和多态
+                封装：通过限制只有特定类的对象可以访问这一特定类的成员，而它们通常利用接口实现消息传入传出。简单说就是给类的属性设定“权限”
+                <script>
+                    // es5写法
+                    function Animal() {
+                        this.name = "鸟类"
+                    }
+                    console.log(Animal.prototype) // Animal构造函数的原型指向对象
+                    
+                    const bird = new Animal()
+                    console.log(bird)
+
+                    // typeScript
+                    // class Animal2 {
+                    //     private name:string
+                    //     public setName(name: string): void {
+                    //         this.name = name
+                    //     }
+                    // }
+                </script>
+
+                继承：在创建子类时，会默认获得父类的一些非私有属性和方法
+                <script>
+                    function Dog() {
+                        this.color = "白色"
+                    }
+                    Dog.prototype = new Animal()
+                    console.log(Dog.prototype)
+                    
+                    // typeScript
+                    // class Dog extends Animal{
+                    //     public color:string
+                    // }
+                </script>
+
+                多态：是指由继承而产生的相关不同的类，其对象对同一消息会作不同的响应。JavaScript/TypeScript 对多态的支持是不友好的，只能在函数内部通过判断参数类型来实现。
+                <script>
+                    function Cat() {
+                        this.bark = function(sound) {
+                            if(undefined !== sound && null !== sound) {
+                                return sound
+                            } else {
+                                return '...'
+                            }
+                        }
+                    }
+                </script>
+
+        声明式编程：在计算机科学中，声明式编程是一种构建程序的样式，该表达式表示计算逻辑无须关心其控制流程，它通常将程序视为某种逻辑理论，可以简化并行程序的过程
+                  重点是完成工作，不关心怎么完成工作，这就是命令式编程(如何做)和声明式(做什么)编程式之间的唯一区别
+            常见子类：逻辑式编程、数据驱动编程和函数式编程
+            逻辑式编程：通过设置答案须符合的规则来解决问题，而非设置步骤来解决问题
+
+            数据驱动编程：这种编程方法是基于数据，程序语句由数据定义而非执行步骤。
+                        数据库程序是业务信息系统的核心，并提供文件创建、数据输入、更新、查询和报告功能。
+            
+            函数式编程：关键原理是通过执行一系列的数学函数来得到结果，核心依赖是用于某些特定计算的功能。而非数据结构，也就是数据和函数是松散耦合的。
+                主要有几个核心概念：
+                    纯函数：若一个函数符合幂等性且无副作用那么就可以称为纯函数,幂等性是指在相同的输入值时，需产生相同的输出，与函数的输出和输入值以外的其他隐藏信息或状态无关。
+                    <script>
+                        // 非幂等
+                        function rand() {
+                            return Math.random()
+                        }
+
+                        // 幂等
+                        function zero() {
+                            return 0
+                        }
+
+                        // 副作用是指除了返回函数值之外，还对调用函数产生附加的影响。例如，修改全局变量（函数外的变量）、修改参数或改变外部存储。
+                        // 无副作用
+                        function add(a, b){
+                            return a + b
+                        }
+
+                        // 有副作用
+                        function setAddition(a, b) {
+                            localstorage.setItem('sum', a + b)
+                        }
+                    </script>
+
+                    高阶函数：高阶函数是指接收一个函数作为参数，然后返回另一个函数的函数。它体现的是一种高级的抽象思维，使用场景也比较多，
+                            例如 TypeScript 提供的装饰器功能来扩展函数，以及 React 中使用高阶组件来扩展组件行为。
+                    
+                    柯里化：是指把接受多个参数的函数变换成接受一个单一参数的函数，并且返回接受余下的参数且返回结果的新函数。
+
+
+</body>
+</html>

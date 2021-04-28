@@ -15,15 +15,6 @@ https://blog.csdn.net/l_ppp/article/details/109740863?ops_request_misc=%257B%252
 RequireJS 和 Sea.js 都是模块加载器，倡导模块化开发理念
 https://github.com/seajs/seajs/issues/277
 
-双向绑定的原理
-vue.js采用的是数据劫持结合发布和-订阅者模式  的方式，通过Object.defineProperty()来劫持各个属性的setter,getter，在数据变动时发布消息给订阅者，触发相应的监听回调。 
-
-泽怡科技
-有4个点，判断任意两条线是否平行
-
-腾讯面试
-有n个promise，[p1, p2,,,pn] 如何按顺序执行下去
-
 
 前端段交互缓存怎么设置使用 
 
@@ -31,5 +22,8 @@ vue.js采用的是数据劫持结合发布和-订阅者模式  的方式，通�
 
 学习下tree-shaking
 
-排序算法
-https://edu.csdn.net/course/detail/27220?spm=1000.2115.3001.4128
+vue cli 3.0 引入 es2020 中的可选链运算符
+https://www.cnblogs.com/binglove/p/12177193.html
+
+解决pdf.js预览pdf不显示签名问题(两条路)
+https://blog.csdn.net/s_y_w123/article/details/108869862?ops_request_misc=%25257B%252522request%25255Fid%252522%25253A%252522161094470116780299034826%252522%25252C%252522scm%252522%25253A%25252220140713.130102334..%252522%25257D&request_id=161094470116780299034826&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~baidu_landing_v2~default-2-108869862.first_rank_v2_pc_rank_v29&utm_term=pdf.js%E7%AD%BE%E5%90%8D%E4%B8%8D%E6%98%BE%E7%A4%BA
