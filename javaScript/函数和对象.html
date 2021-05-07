@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>this指向</title>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: relative;
+            left: 0;
+            transition: 0.5s;
+        }
+        .lili{
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: relative;
+            left: 0;
+            transition: 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+
+    </div>
+
+    <div class="lili">
+
+    </div>
+    <!-- 
+        1.在事件调用环境  谁触发事件，函数里面的this就指向的是谁
+     -->
+    <script>
+        function move() {
+            console.log(this)
+        }
+
+        // move() // window非严格模式下  严格模式undefined
+
+        var obj = {
+            a: 10,
+            b: function() {
+                console.log(this)
+            }
+        }
+        
+    </script>
+</body>
+</html>

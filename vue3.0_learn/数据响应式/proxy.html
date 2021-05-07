@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proxy</title>
+</head>
+<body>
+    <div id="app">
+        {{age}}
+        <div>
+            {{name}}
+        </div>
+        <input type="text" v-model="weight">
+        {{weight}}
+
+    </div>
+
+    <!-- 
+        了解Proxy
+     -->
+    <script>
+        var data = {
+            name: 'lili',
+            age: 20,
+            feature: {
+                height: 170
+            }
+        }
+
+        let p = new Proxy(data, {
+            set(target, prop, newVal) {
+                console.log('set....',target, prop, newVal)
+                return Reflect.set(...arguments)
+            },
+            get(target, prop) {
+                return Reflect.get(...arguments)
+            }
+        })
+        // console.log(p)
+        p.age = 21
+        p.feature.height = 171
+        console.log(p.name)
+    </script>
+
+    <script src="./myVue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                name: 'chentao',
+                age: 25,
+                message: '测试数据',
+                weight: '23'
+            }
+        })
+
+        console.log(vm)
+    </script>
+</body>
+</html>

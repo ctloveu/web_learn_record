@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=\, initial-scale=1.0">
-    <title>debounce,th高级封装</title>
+    <title>debounce,throttle高级封装</title>
 </head>
 <body>
-    
+    防抖：在一定时间内只触发一次，如果在这个时间内又触发了该事件，则会重新计算函数执行事件
+
+    节流：只在一定时间内触发一次
     <script>
         // 简单防抖，没有处理fn返回值的情况
         const simpleDebounce = (fn, ms) => {

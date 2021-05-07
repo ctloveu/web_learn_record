@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>this指向</title>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: relative;
+            left: 0;
+            transition: 0.5s;
+        }
+        .lili{
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: relative;
+            left: 0;
+            transition: 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+
+    </div>
+
+    <div class="lili">
+
+    </div>
+    <!-- 
+        1.在事件调用环境  谁触发事件，函数里面的this就指向的是谁
+     -->
+    <script>
+        let box = document.querySelector('.box')
+        box.onclick = move
+
+        function move() {
+            this.style.left = '100px'
+        }
+
+        function move2() {
+            setTimeout(function() {
+                this.style.left = '100px'
+            }, 1000)
+        }
+
+        function move3() {
+            setTimeout(() => {
+                this.style.left = '100px'
+            }, 1000)
+        }
+
+        let lili = document.querySelector('.lili')
+        lili.onclick = move
+
+        lili.onclick = move2 // 此时this的指向为windows,这里运行会报错
+
+        lili.onclick = move3 // this 实际是调用上一层运行环境的this
+    </script>
+
+    <!-- 
+        2.全局环境  node环境下 this的值 === {} === module.exports
+     -->
+     <script>
+         console.log(this)  // 这里指向的就是window
+     </script>
+
+     <!-- 
+         3.函数内部this
+            this最终指向的是调用它的对象
+            函数被多层对象包含，如果函数被最外层对象调用，this指向的也只是它的上一层的对象
+            构造函数指向的是实例对象(无返回对象) === return null === return ‘非对象’
+            如果返回是对象，会指向返回对象
+      -->
+      <script>
+          function addNum() {
+              console.log(this) // window
+          }
+          addNum()
+
+          var obj = {
+              addNum: function() {
+                  console.log(this)
+              }
+          }
+          obj.addNum() // obj
+
+          var newaddNum = obj.addNum
+          newaddNum() // window
+
+          function MyObject() {
+            console.log(this)
+          }
+
+          var myObj = new MyObject() // MyObject{} === myObj
+          console.log(myObj)
+
+          var objs = {
+              one: function() {
+                this.two.three()
+              },
+              two: {
+                  three: function (){
+                      console.log(this)
+                  }
+              }
+          }
+          objs.one() // {three: f(){}}
+      </script>
+
+      <!-- 
+          构造函数
+            new操作符
+                1.调用函数
+                2.自动创建了一个对象
+                3.把创建出来的对象和this绑定
+                4.如果构造函数没有返回值，隐式返回this对象
+       -->
+
+       <script>
+           function fn() {
+               this.num = 10
+            //    console.log(this)
+           }
+
+           fn.num = 20
+           fn.prototype.num = 30
+           fn.prototype.method = function() {
+               console.log(this)
+               console.log(this.num)
+           }
+
+        //    var myfn = new fn() // fn{ num: 10 }
+
+           var prototype = fn.prototype
+           var method = prototype.method
+
+           new fn().method() // fn{ num: 10 }  10
+
+           prototype.method() // { num: 30, method: f, constructor: f }  30
+
+           method() // window undefined === window.method()
+
+
+           function fns() {
+               this.num = 10
+               return ''
+           }
+
+           var myfns = new fns()
+
+       </script>
+
+       <!-- 
+           箭头函数，在定义的时候其实就决定了this指向问题，使用call等是不能修改的
+            this实际上调用的是定义是的上一层作用域的this，这里强调一下是上一层作用域，因为对象是不能形成独立的作用域的
+        -->
+        <script>
+            var objss = {
+                fn: () => {
+                    console.log(this)
+                }
+            }
+            objss.fn() // window
+        </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>操作DOM原生API</title>
+</head>
+<body>
+    <ul class="parent">
+        <li>34535</li>
+        <li>345543</li>
+        <li>345</li>
+        <li>53454</li>
+    </ul>
+    <ul class="parent">
+
+    </ul>
+    <div class="content">
+        111111
+    </div>
+
+    <script>
+        const parent = document.querySelector('.parent')
+        parent.onclick = function(e) {
+            e.target.style.color = "red"
+        }
+
+        const contents = document.querySelector('.content')
+        contents.onclick = function(e) {
+            e.target.style.color = "red"
+        }
+
+        // 幂运算符
+        var a = 5
+        var b = a ** 2
+        console.log(b)
+
+        // 正则表达式的学习
+        var reg = /(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$)/
+        var regs = /(^[1-9]\d{5}(18|19|([23]\d)))/
+        console.log(regs.test('5312318'))
+    </script>
+</body>
+</html>
